@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+   <h2>Your Test History:</h2>
+<table>
+    <tr><th>Date</th><th>Score</th></tr>
+    <tr th:each="res : ${results}">
+        <td th:text="${res.dateTime}"></td>
+        <td th:text="${res.score}"></td>
+    </tr>
+</table>
+   
+</body>
+</html>
