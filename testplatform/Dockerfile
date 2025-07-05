@@ -1,19 +1,12 @@
-FROM openjdk:17-jdk-slim AS build
-
+# Step 1: Use Maven image to build the project
+FROM maven:3.9.4-eclipse-temurin-17 AS builder
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN ./mvnw dependency:go-offline
-
-COPY src ./src
-RUN ./mvnw clean package -DskipTests
-
-FROM openjdk:17-jdk-slim
+# Step 2: Use a smaller image to run the jar
+FROM eclipse-temurin:17
 WORKDIR /app
-
-COPY --from=build /app/target/*.jar app.jar
-
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
