@@ -14,12 +14,23 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String text;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
-    private String correctAnswer;
+@Column(columnDefinition = "TEXT")
+private String optionA;
+
+@Column(columnDefinition = "TEXT")
+private String optionB;
+
+@Column(columnDefinition = "TEXT")
+private String optionC;
+
+@Column(columnDefinition = "TEXT")
+private String optionD;
+
+@Column(columnDefinition = "TEXT")
+private String text;
+
+@Column(columnDefinition = "TEXT")
+private String correctAnswer;
     
     @Transient
     private List<String> options;
